@@ -1,11 +1,12 @@
 <template>
-  <div id="app">
-    <Topbar/>
+  <div id="app" class="page">
+    <header>
+      <Topbar class="topbar"/>
+    </header>
     <main>
-      <Editor/>
-      <Preview/>  
+      <Editor class="editor"/>
+      <Preview class="preview"/>  
     </main>
-  
   </div>
 </template>
 
@@ -34,12 +35,30 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: rgb(79, 148, 108);
+}
+.page>main {
+  flex-grow: 1;
+
+}
+.page>main {
+  max-width: 1440px;
+  min-width: 1024px;
+  width: 100%;
+  margin: 16px;
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+}
+main>.editor {
+  width: calc(40% - 48px);
+  margin-right: 16px;
+}
+main>.preview {
+  flex: 1;
 }
 </style>
