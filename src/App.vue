@@ -1,17 +1,34 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+    <Topbar/>
+    <main>
+      <Editor/>
+      <Preview/>  
+    </main>
+  
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import Topbar from './components/Topbar'
+import Preview from './components/ResumePreview'
+import Editor from './components/ResumeEditor'
 
 export default {
   name: 'App',
+  data: function(){
+    return {
+      resume:{
+        profile:{name:'',birthday:'',gender:'',status:'',workyear:'',city:'',expectCity:'',expectWork:''},
+        workHistory:{duration:'',company:'',content:''},
+        studyHistory:{duration:'',school:'',major:'',degree:''},
+        projects:{name:'',content:''},
+        contacts:{qq:'',wechat:'',email:'',phone:''}
+      }
+    }
+  },
   components: {
-    HelloWorld
+    Topbar,Preview,Editor
   }
 }
 </script>
