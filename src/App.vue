@@ -1,19 +1,24 @@
 <template>
-  <div id="app" class="page">
-    <header>
-      <Topbar class="topbar"/>
-    </header>
-    <main>
-      <Editor class="editor"/>
-      <Preview class="preview"/>  
-    </main>
+  <div id="app">
+    <div class="loginPage"></div>
+    <div class="editPage">
+      <header>
+        <Topbar class="topbar"/>
+      </header>
+      <main>
+        <Editor class="editor"/>
+        <Preview class="preview"/>  
+      </main>
   </div>
+  </div>
+
 </template>
 
 <script>
 import Topbar from './components/Topbar'
 import Preview from './components/ResumePreview'
 import Editor from './components/ResumeEditor'
+import icons from './assets/icons'
 
 export default {
   name: 'App',
@@ -30,35 +35,42 @@ export default {
   },
   components: {
     Topbar,Preview,Editor
+  },
+  created(){
+    document.body.insertAdjacentHTML('afterbegin', icons) 
   }
+
 }
 </script>
 
-<style>
-.page {
+<style lang="scss">
+$maincolor:#409EFF;
+.editPage {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: rgb(79, 148, 108);
+  background: $maincolor;
+  >main {
+    flex-grow: 1;
+  }
+  >main {
+    max-width: 1440px;
+    min-width: 1024px;
+    width: 100%;
+    // margin: 16px 0;
+    padding:  16px;
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+    >.editor {
+      width: calc(40% - 48px);
+      margin-right: 16px;
+    }
+    >.preview {
+      flex: 1;
+    }
+  }
 }
-.page>main {
-  flex-grow: 1;
 
-}
-.page>main {
-  max-width: 1440px;
-  min-width: 1024px;
-  width: 100%;
-  margin: 16px;
-  display: flex;
-  align-self: center;
-  justify-content: space-between;
-}
-main>.editor {
-  width: calc(40% - 48px);
-  margin-right: 16px;
-}
-main>.preview {
-  flex: 1;
-}
+
 </style>
