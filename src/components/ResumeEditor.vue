@@ -4,35 +4,10 @@
       <ol>
         <li v-for="item in resume.config" :key="item.field" :class="{active: item.field === selected}" 
             @click="selected = item.field"> 
-          <svg class="icon" aria-hidden="true">     
-              <use xlink:href="`#icon-${item.icon}`"></use>
+          <svg class="icon" aria-hidden="true">   
+              <use :xlink:href="`#icon-${item.icon}`"></use>
           </svg>
         </li>
-        <!-- <li> 
-          <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-study"></use>
-          </svg>
-        </li>
-        <li>
-          <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-work"></use>
-          </svg>
-        </li>
-        <li>
-          <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-project"></use>
-          </svg>
-        </li>
-        <li>
-          <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-reward"></use>
-          </svg>
-        </li>
-        <li>
-          <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-contact"></use>
-          </svg>
-        </li>  -->
       </ol>
     </nav> 
     <ol class="panels">
@@ -77,6 +52,7 @@ $maincolor:#409EFF;
       max-width: 80px;
       width: 20%;
       background: $maincolor;
+      overflow: auto;
       li{
         width: 100%;
         text-align: center;
@@ -99,8 +75,5 @@ $maincolor:#409EFF;
   svg.icon {
     width: 32px; height: 32px;
     font-size: 16px;
-    vertical-align: -0.1em; 
-    fill: currentColor;
-    overflow: hidden;
   }
 </style>
