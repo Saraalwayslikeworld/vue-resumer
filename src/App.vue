@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="loginPage"></div>
+    <!-- <div class="loginPage"></div> -->
     <div class="editPage">
       <header>
         <Topbar class="topbar"/>
@@ -44,12 +44,11 @@ export default {
 </script>
 
 <style lang="scss">
-$maincolor:#409EFF;
 .editPage {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: $maincolor;
+  background: #E4E7ED;
   >main {
     flex-grow: 1;
   }
@@ -71,6 +70,13 @@ $maincolor:#409EFF;
     }
   }
 }
+  svg.icon{
+    height: 1em;
+    width: 1em;
+    fill: currentColor;
+    vertical-align: -0.1em;
+    font-size:16px;
+  }
 
 
 </style>
