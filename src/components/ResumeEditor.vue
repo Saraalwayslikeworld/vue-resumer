@@ -35,9 +35,9 @@
 
 
 <script>
-import ProfileEditor from './ProfileEditor.vue'
-import ContactEditor from './ContactEditor.vue'
-import ItemEditor from './ItemEditor.vue'
+import ProfileEditor from './EditorProfile.vue'
+import ContactEditor from './EditorContact.vue'
+import ItemEditor from './EditorItem.vue'
 export default {
   name: 'Editor',
   components:{ ProfileEditor,ContactEditor,ItemEditor},
