@@ -34,7 +34,10 @@
                 this.items.push(empty)
             },
             delItem(index){
-                if(index==0)return
+                if(index==0){
+                    alert('至少要有一项！')
+                    return
+                }
                 this.items.splice(index,1)
             }
         }

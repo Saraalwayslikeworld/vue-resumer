@@ -15,16 +15,16 @@
         <ProfileEditor v-bind:profile="resume.profile"/> 
       </li>
       <li  v-show="selected === 'workHistory'">
-        <ItemEditor v-bind:items="resume.workHistory" labels="{company:'公司',duration:'起始日期',content:'工作内容'}" title="工作经历"/>
+        <ItemEditor v-bind:items="resume.workHistory" :labels="{company:'公司',duration:'起始日期',content:'工作内容'}" title="工作经历"/>
       </li>
       <li  v-show="selected === 'education'">
-        <ItemEditor v-bind:items="resume.education" labels="{school:'学校',duration:'起始日期',major:'专业',degree:'学位'}" title="学习经历"/>
+        <ItemEditor v-bind:items="resume.education" :labels="{'school':'学校',duration:'起始日期',major:'专业',degree:'学位'}" title="学习经历"/>
       </li>
       <li  v-show="selected === 'projects'">
-        <ItemEditor v-bind:items="resume.projects" labels="{name:'项目',content:'项目内容'}" title="获奖情况"/>
+        <ItemEditor v-bind:items="resume.projects" :labels="{name:'项目',content:'项目内容'}" title="项目经历"/>
       </li>
       <li  v-show="selected === 'awards'">
-        <ItemEditor v-bind:items="resume.awards" labels="{name:'奖励荣誉'}" title="获奖情况"/>
+        <ItemEditor v-bind:items="resume.awards" :labels="{name:'奖励荣誉'}" title="获奖情况"/>
       </li>
       <li v-show="selected === 'contacts'">
         <ContactEditor v-bind:contacts="resume.contacts"/>
