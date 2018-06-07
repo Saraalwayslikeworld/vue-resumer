@@ -19,7 +19,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-$maincolor:#409EFF;
+  $maincolor:#409EFF;
+  $bgcolor: rgba(64, 160, 255, 0.6);
   #Topbar {
     background: #fff;   
     box-shadow:0 1px 3px 0 rgba(0,0,0,0.25);

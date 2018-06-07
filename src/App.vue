@@ -44,6 +44,8 @@ export default {
 </script>
 
 <style lang="scss">
+$maincolor:#409EFF;
+$bgcolor: rgba(64, 160, 255, 0.6);
 .editPage {
   height: 100vh;
   display: flex;

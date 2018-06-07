@@ -4,16 +4,17 @@ import Vue from 'vue'
 import App from './App'
 import 'normalize.css'        // 统一默认样式
 import './assets/reset.scss'  // 修改默认样式
-import { Button,Icon} from 'element-ui';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
-Vue.use(Button,{ size: 'x-small', zIndex: 3000 })
-Vue.use(Icon,{ size: 'small', zIndex: 3000 })
+Vue.use(ElementUI);
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  render: h => h(App),
   components: { App },
   template: '<App />'
 })
