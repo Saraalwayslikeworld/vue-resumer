@@ -5,14 +5,14 @@
             <el-form  size="small" label-position=top> 
                 <el-form-item v-for="key in keys" :key='key' v-bind:label="labels[key] || key">          
                     <el-input v-if="key!=='duration'&& key !=='content'" v-model="item[key]"></el-input>
-                    <el-input v-if="key=='content'" type="textarea" :rows="2" v-model="item[key]"></el-input>
-                    <el-date-picker v-if="key=='duration'" v-model="item[key]" style="width: 80%" format="yyyy-MM" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                    <el-input v-if="key=='content'" type="textarea" :rows="3" v-model="item[key]"></el-input>
+                    <el-date-picker v-if="key=='duration'" v-model="item[key]" style="width: 80%" value-format="yyyy/MM" format="yyyy-MM" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
                 </el-form-item>
             </el-form>
             <button class="remove" v-on:click="delItem(index)"><i class="el-icon-delete"></i></button>
             <hr>
         </div>
-        <el-button type="primary" class="add" v-on:click="addItem">添加项</el-button>
+        <el-button type="primary" class="add" v-on:click="addItem">新增</el-button>
     </div>    
 </template>
 
@@ -34,10 +34,6 @@
                 this.items.push(empty)
             },
             delItem(index){
-                if(index==0){
-                    alert('至少要有一项！')
-                    return
-                }
                 this.items.splice(index,1)
             }
         }
@@ -53,13 +49,17 @@
     .container {
         position: relative;
         > .remove {
-            color: $maincolor;
+            color: #606266;
             border: none;
             outline: none;
             background: #fff;
             position: absolute;
             top: 0;
             right: 0;
+            
+        }
+        >.remove:hover {
+            color: $maincolor;
         }
         >hr {
             border: none;

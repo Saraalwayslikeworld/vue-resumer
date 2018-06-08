@@ -3,11 +3,12 @@
     <!-- <div class="loginPage"></div> -->
     <div class="editPage">
       <header>
-        <Topbar class="topbar"/>
+        <Topbar v-show="!previewMode" class="topbar"/>
       </header>
       <main>
-        <Editor class="editor"/>
-        <Preview class="preview"/>  
+        <Editor class="editor" v-show="!previewMode"/>
+        <Preview class="preview" v-bind:class="{viewMode: previewMode}"/> 
+        <el-button class="exit" type="success" round @click="previewMode = false" v-show="previewMode">退出预览</el-button> 
       </main>
   </div>
   </div>
@@ -20,26 +21,27 @@ import Preview from './components/ResumePreview'
 import Editor from './components/ResumeEditor'
 import icons from './assets/icons'
 
+import store from './store/index'
+
 export default {
   name: 'App',
-  data: function(){
-    return {
-      resume:{
-        profile:{name:'',birthday:'',gender:'',status:'',workyear:'',city:'',expectCity:'',expectWork:''},
-        workHistory:{duration:'',company:'',content:''},
-        studyHistory:{duration:'',school:'',major:'',degree:''},
-        projects:{name:'',content:''},
-        contacts:{qq:'',wechat:'',email:'',phone:''}
-      }
-    }
-  },
+  store,
   components: {
     Topbar,Preview,Editor
   },
   created(){
     document.body.insertAdjacentHTML('afterbegin', icons) 
+  },
+  computed:{
+    previewMode:{
+      get(){
+        return this.$store.state.previewMode
+      },
+      set(value){
+        this.$store.commit('preview',value)
+      }
+    }
   }
-
 }
 </script>
 
@@ -50,7 +52,7 @@ $bgcolor: rgba(64, 160, 255, 0.6);
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #E4E7ED;
+  background: #DCDFE6;
   >main {
     flex-grow: 1;
   }
@@ -58,17 +60,21 @@ $bgcolor: rgba(64, 160, 255, 0.6);
     max-width: 1440px;
     min-width: 1024px;
     width: 100%;
-    // margin: 16px 0;
     padding:  16px;
+    position: relative;
     display: flex;
-    align-self: center;
-    justify-content: space-between;
+    justify-content: space-around;
     >.editor {
       width: calc(40% - 48px);
       margin-right: 16px;
     }
     >.preview {
       flex: 1;
+    }
+    >.exit{
+      position: absolute;
+      right: 48px;
+      top: 32px;
     }
   }
 }
@@ -79,6 +85,11 @@ $bgcolor: rgba(64, 160, 255, 0.6);
     vertical-align: -0.1em;
     font-size:16px;
   }
-
+.viewMode {
+  align-self: center;
+  max-width: 60%; 
+  overflow: auto;
+  height: 100vh; 
+}
 
 </style>

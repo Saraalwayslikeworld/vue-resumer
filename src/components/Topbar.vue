@@ -3,7 +3,7 @@
     <div class="wrapper">
       <span class="logo"><i class="el-icon-edit-outline"></i> ResumeEditor</span>
       <div class="btn">
-        <el-button type="success" icon="el-icon-view" round>预览</el-button>
+        <el-button type="success" icon="el-icon-view" round @click="previewMode = true">预览</el-button>
         <el-button type="primary" icon="el-icon-circle-check-outline" round>保存</el-button>
         <el-button  round>退出登录</el-button>
       </div>       
@@ -14,6 +14,16 @@
 <script>
 export default {
   name: 'Topbar',
+  computed:{
+    previewMode:{
+      get(){
+        return this.$store.state.previewMode
+      },
+      set(value){
+        this.$store.commit('preview',value)
+      }
+    }
+  }
 }
 </script>
 

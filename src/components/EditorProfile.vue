@@ -5,16 +5,11 @@
           <el-form-item label="姓 名">
             <el-input v-model="profile.name" style="width:80%"></el-input>
           </el-form-item>
-           <el-form-item label="出生年月">
-            
-              <el-date-picker type="date" placeholder="选择日期" v-model="profile.birthday" style="width:80%" format="yyyy-MM "></el-date-picker>
-            
+          <el-form-item label="出生年月">
+              <el-date-picker type="date" placeholder="选择日期" v-model="profile.birthday" style="width:80%" value-format="yyyy/MM" format="yyyy-MM "></el-date-picker>
           </el-form-item>
-           <el-form-item label="性 别">
-            <el-radio-group v-model="profile.gender">
-              <el-radio label="男"></el-radio>
-              <el-radio label="女"></el-radio>
-            </el-radio-group>
+          <el-form-item label="期望职位">
+            <el-input v-model="profile.position" style="width:80%"></el-input>
           </el-form-item>
           <el-form-item label="所在城市">
             <el-input v-model="profile.city" style="width:80%"></el-input>
