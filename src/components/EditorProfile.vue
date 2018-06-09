@@ -3,22 +3,22 @@
         <h3>{{title}}</h3>
         <el-form label-position=left label-width="72px" size="small">
           <el-form-item label="姓 名">
-            <el-input :value="profile.name" style="width:80%" @input="changeResumeField(`${field}.${key}`,$event.target.value)"></el-input>
+            <el-input :value="profile.name" style="width:80%" @input.native="changeResumeField(`${field}.name`,$event.target.value)"></el-input>
           </el-form-item>
           <el-form-item label="出生年月">
-              <el-date-picker type="date" placeholder="选择日期" :value="profile.birthday"  v-on:change="changeResumeField(`${field}.${key}`,$event.target.value)" style="width:80%" value-format="yyyy/MM" format="yyyy-MM "></el-date-picker>
+              <el-input  placeholder="填写日期" :value="profile.birthday"  @input.native="changeResumeField(`${field}.birthday`,$event.target.value)" style="width:80%" ></el-input>
           </el-form-item>
           <el-form-item label="期望职位">
-            <el-input :value="profile.position" style="width:80%" @input="changeResumeField(`${field}.${key}`,$event.target.value)"></el-input>
+            <el-input :value="profile.position" style="width:80%" @input.native="changeResumeField(`${field}.position`,$event.target.value)"></el-input>
           </el-form-item>
           <el-form-item label="所在城市">
-            <el-input :value="profile.city" style="width:80%" @input="changeResumeField(`${field}.${key}`,$event.target.value)"></el-input>
+            <el-input :value="profile.city" style="width:80%" @input.native="changeResumeField(`${field}.city`,$event.target.value)"></el-input>
           </el-form-item>
-          <el-form-item label="目前状态">
-            <radio-group :value="profile.status" @change="changeResumeField(`${field}.${key}`,$event.target.value)">
+          <el-form-item label="目前状态" @change.native="changeResumeField(`${field}.status`,$event.target.value)">
+            <el-radio-group :value="profile.status" @change.native="changeResumeField(`${field}.status`,$event.target.value)">
               <el-radio label="在职，正在看机会" name="type" ></el-radio>
               <el-radio label="已离职" name="type"></el-radio>
-            </radio-group>
+            </el-radio-group>
           </el-form-item> 
         </el-form>
     </div>    

@@ -3,7 +3,7 @@
         <h3>{{title}}</h3>
         <el-form label-position=left label-width="72px" size="small">
           <el-form-item  v-for="(item,key) in contacts" :key="key" :label="labels[key]||key">
-            <el-input :value="item" @input="changeResumeField(`${field}.${key}`,$event.target.value)" style="width:80%"></el-input>
+            <el-input :value="item" @input.native="changeResumeField(`${field}.${key}`,$event.target.value)" style="width:80%"></el-input>
           </el-form-item>
         </el-form>
     </div>    

@@ -3,29 +3,17 @@
         <h3>{{title}}</h3>
         <div class="container" v-for="(item,index) in items" :key="index">  
             <el-form  size="small" label-position=top> 
-                <el-form-item v-for="key in keys" :key='key' v-bind:label="labels[key] || key">                     
+                <el-form-item v-for="(value,key) in item" :key='key' v-bind:label="labels[key] || key">                     
                     <el-input 
-                        v-if="key=='content'" 
+                        v-show="key=='content'" 
                         type="textarea" :rows="3" 
                         :value="item[key]" 
-                        @input="changeResumeField(`${field}.${index}.${key}`,$event.target.value)">
-                    </el-input>
-                    <el-date-picker 
-                        v-else-if="key =='duration'" 
+                        @change.native="changeResumeField(`${field}.${index}.${key}`,$event.target.value)">
+                    </el-input>  
+                    <el-input 
+                        v-show="key!=='content'"
                         :value="item[key]" 
-                        style="width: 80%" 
-                        value-format="yyyy/MM" 
-                        format="yyyy-MM" 
-                        type="daterange" 
-                        range-separator="-" 
-                        start-placeholder="开始日期" 
-                        end-placeholder="结束日期"
-                        @input="changeResumeField(`${field}.${index}.${key}`,$event.target.value)">
-                    </el-date-picker>
-                    <el-input v-else 
-                        :value="item[key]" 
-                        @input="changeResumeField(`${field}.${index}.${key}`,$event.target.value)"
-                    ></el-input>
+                        @input.native="changeResumeField(`${field}.${index}.${key}`,$event.target.value)"></el-input>
                 </el-form-item>
             </el-form>
             <button class="remove" v-on:click="delItem(field,index)"><i class="el-icon-delete"></i></button>

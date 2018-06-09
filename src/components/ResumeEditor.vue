@@ -13,13 +13,13 @@
     <ol class="panels">
       <li  v-for="(item,key,index) in config" :key="index" v-show="selected==item.field">
         <div v-if="resume[item.field] instanceof Array" >
-          <ItemEditor v-bind:items="resume[item.field]"  :title="item.title" :labels="labelsCollect[item.field]" :field="item.field"/>
+          <ItemEditor  v-bind:items="resume[item.field]"   v-bind:title="item.title"  v-bind:labels="labelsCollect[item.field]"  v-bind:field="item.field"/>
         </div>
         <div v-else-if="item.field=='profile'">    
-          <ProfileEditor v-bind:profile="resume[item.field]" :title="item.title" :field="item.field"/> 
+          <ProfileEditor v-bind:profile="resume[item.field]"  v-bind:title="item.title"  v-bind:field="item.field"/> 
         </div>
         <div v-else>
-          <ContactEditor v-bind:contacts="resume[item.field]" :labels="labelsCollect[item.field]" :title="item.title" :field="item.field"/>
+          <ContactEditor v-bind:contacts="resume[item.field]"  v-bind:labels="labelsCollect[item.field]"  v-bind:title="item.title"  v-bind:field="item.field"/>
         </div>
       </li>
     </ol>  

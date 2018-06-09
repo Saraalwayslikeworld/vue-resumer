@@ -10,12 +10,12 @@
       </p>
     </header>
     <section v-for="(items,key,index) in resume" :key="index" v-if="index!==0 && index!==5">
-      <span class="title" v-if="index!==0">{{config[index].title}}</span>
-      <hr v-if="index!==0">
+      <span class="title">{{config[index].title}}</span>
+      <hr>
       <li v-for="item in items" :key="item">
-        <p class="content" v-for="(value,key) in item" :key="key" v-if="key=='content'">{{ (value||'请填写详细内容') }}</p>
-        <span class="time" v-else-if="value instanceof Array">{{ value.join('-')||'请填写日期' }}</span>
-        <span class="msg" v-else>{{ (value||'请填写信息') }}</span>
+        <span class="time" v-if="value instanceof Array"  v-for="(value,key) in item" :key="key"> {{ value.join('-')||'请填写日期' }}</span>
+        <p class="content" v-else-if="key=='content'">{{ (value||'请填写详细内容') }}</p>
+        <span class="msg" v-else>{{ (value||'请填写信息') }}</span> 
       </li>
     </section>   
     <footer>
