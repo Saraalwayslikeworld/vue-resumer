@@ -3,38 +3,56 @@
         <h3>{{title}}</h3>
         <div class="container" v-for="(item,index) in items" :key="index">  
             <el-form  size="small" label-position=top> 
-                <el-form-item v-for="key in keys" :key='key' v-bind:label="labels[key] || key">          
-                    <el-input v-if="key!=='duration'&& key !=='content'" v-model="item[key]"></el-input>
-                    <el-input v-if="key=='content'" type="textarea" :rows="3" v-model="item[key]"></el-input>
-                    <el-date-picker v-if="key=='duration'" v-model="item[key]" style="width: 80%" value-format="yyyy/MM" format="yyyy-MM" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                <el-form-item v-for="key in keys" :key='key' v-bind:label="labels[key] || key">                     
+                    <el-input 
+                        v-if="key=='content'" 
+                        type="textarea" :rows="3" 
+                        :value="item[key]" 
+                        @input="changeResumeField(`${field}.${index}.${key}`,$event.target.value)">
+                    </el-input>
+                    <el-date-picker 
+                        v-else-if="key =='duration'" 
+                        :value="item[key]" 
+                        style="width: 80%" 
+                        value-format="yyyy/MM" 
+                        format="yyyy-MM" 
+                        type="daterange" 
+                        range-separator="-" 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"
+                        @input="changeResumeField(`${field}.${index}.${key}`,$event.target.value)">
+                    </el-date-picker>
+                    <el-input v-else 
+                        :value="item[key]" 
+                        @input="changeResumeField(`${field}.${index}.${key}`,$event.target.value)"
+                    ></el-input>
                 </el-form-item>
             </el-form>
-            <button class="remove" v-on:click="delItem(index)"><i class="el-icon-delete"></i></button>
+            <button class="remove" v-on:click="delItem(field,index)"><i class="el-icon-delete"></i></button>
             <hr>
         </div>
-        <el-button type="primary" class="add" v-on:click="addItem">新增</el-button>
+        <el-button type="primary" class="add" v-on:click="addItem(field)">新增</el-button>
     </div>    
 </template>
 
 <script>
     export default {
         name:'ItemEditor',
-        props:['items','labels','title'],
+        props:['items','labels','title','field'],
         computed:{
             keys(){
                 return Object.keys(this.items[0])
             }
         },
         methods:{
-            addItem(){
-                let empty = {}
-                this.keys.map((key)=>{
-                    empty[key] = ''
-                })
-                this.items.push(empty)
+            changeResumeField(path,value){
+                this.$store.commit('updateResume',{path,value})
             },
-            delItem(index){
-                this.items.splice(index,1)
+            delItem(field,index){
+                this.$store.commit('delItem',{field,index})
+            },
+            addItem(field){
+                this.$store.commit('addItem',field)
             }
         }
     }

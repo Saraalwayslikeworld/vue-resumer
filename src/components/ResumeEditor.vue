@@ -11,23 +11,16 @@
       </ol>
     </nav> 
     <ol class="panels">
-      <li v-show="selected === 'profile'">
-        <ProfileEditor v-bind:profile="resume.profile"/> 
-      </li>
-      <li  v-show="selected === 'workHistory'">
-        <ItemEditor v-bind:items="resume.workHistory" :labels="{company:'公司',duration:'起始日期',position:'职位',content:'工作内容'}" :title="config[1].title"/>
-      </li>
-      <li  v-show="selected === 'education'">
-        <ItemEditor v-bind:items="resume.education" :labels="{'school':'学校',duration:'起始日期',major:'专业',degree:'学位'}" :title="config[2].title"/>
-      </li>
-      <li  v-show="selected === 'projects'">
-        <ItemEditor v-bind:items="resume.projects" :labels="{name:'项目',content:'项目内容'}" :title="config[3].title"/>
-      </li>
-      <li  v-show="selected === 'awards'">
-        <ItemEditor v-bind:items="resume.awards" :labels="{name:'奖励荣誉'}" :title="config[4].title"/>
-      </li>
-      <li v-show="selected === 'contacts'">
-        <ContactEditor v-bind:contacts="resume.contacts"/>
+      <li  v-for="(item,key,index) in config" :key="index" v-show="selected==item.field">
+        <div v-if="resume[item.field] instanceof Array" >
+          <ItemEditor v-bind:items="resume[item.field]"  :title="item.title" :labels="labelsCollect[item.field]" :field="item.field"/>
+        </div>
+        <div v-else-if="item.field=='profile'">    
+          <ProfileEditor v-bind:profile="resume[item.field]" :title="item.title" :field="item.field"/> 
+        </div>
+        <div v-else>
+          <ContactEditor v-bind:contacts="resume[item.field]" :labels="labelsCollect[item.field]" :title="item.title" :field="item.field"/>
+        </div>
       </li>
     </ol>  
   </div>
@@ -44,6 +37,9 @@ export default {
   computed:{
     config(){
       return this.$store.state.config
+    },
+    labelsCollect(){
+      return this.$store.state.labelsCollect
     },
     selected:{
       get(){

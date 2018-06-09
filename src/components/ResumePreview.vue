@@ -14,7 +14,7 @@
       <hr v-if="index!==0">
       <li v-for="item in items" :key="item">
         <p class="content" v-for="(value,key) in item" :key="key" v-if="key=='content'">{{ (value||'请填写详细内容') }}</p>
-        <span class="time" v-else-if="value instanceof Array">{{ value.join('-')||'0000/00-0000/00' }}</span>
+        <span class="time" v-else-if="value instanceof Array">{{ value.join('-')||'请填写日期' }}</span>
         <span class="msg" v-else>{{ (value||'请填写信息') }}</span>
       </li>
     </section>   

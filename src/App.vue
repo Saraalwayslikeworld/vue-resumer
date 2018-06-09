@@ -31,6 +31,11 @@ export default {
   },
   created(){
     document.body.insertAdjacentHTML('afterbegin', icons) 
+    let state = localStorage.getItem('state')
+    if(state){
+      state = JSON.parse(state)
+    }
+    this.$store.commit('initState',state)
   },
   computed:{
     previewMode:{
@@ -60,9 +65,10 @@ $bgcolor: rgba(64, 160, 255, 0.6);
     max-width: 1440px;
     min-width: 1024px;
     width: 100%;
-    padding:  16px;
+    padding: 16px;
     position: relative;
     display: flex;
+    align-self: center;
     justify-content: space-around;
     >.editor {
       width: calc(40% - 48px);
@@ -86,10 +92,11 @@ $bgcolor: rgba(64, 160, 255, 0.6);
     font-size:16px;
   }
 .viewMode {
+  margin-top: 32px;
   align-self: center;
   max-width: 60%; 
   overflow: auto;
-  height: 100vh; 
+  height: calc(100vh - 32px); 
 }
 
 </style>

@@ -1,19 +1,10 @@
 <template>
     <div id="ContactEditor">
-        <h3>联系方式</h3>
+        <h3>{{title}}</h3>
         <el-form label-position=left label-width="72px" size="small">
-          <el-form-item label="QQ">
-            <el-input v-model="contacts.qq" style="width:80%"></el-input>
+          <el-form-item  v-for="(item,key) in contacts" :key="key" :label="labels[key]||key">
+            <el-input :value="item" @input="changeResumeField(`${field}.${key}`,$event.target.value)" style="width:80%"></el-input>
           </el-form-item>
-          <el-form-item label="Wechat">
-            <el-input v-model="contacts.wechat" style="width:80%"></el-input>
-          </el-form-item>
-          <el-form-item label="电话号码">
-            <el-input v-model="contacts.phone" style="width:80%"></el-input>
-          </el-form-item>
-          <el-form-item label="Email">
-            <el-input v-model="contacts.email" style="width:80%"></el-input>
-          </el-form-item> 
         </el-form>
     </div>    
 </template>
@@ -21,7 +12,12 @@
 <script>
     export default {
         name:'ContactEditor',
-        props:['contacts']
+        props:['contacts','labels','title','field'],
+        methods:{
+            changeResumeField(path,value){
+                this.$store.commit('updateResume',{path,value})
+            }
+        }
     }
 </script>
 
