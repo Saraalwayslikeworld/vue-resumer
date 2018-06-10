@@ -1,36 +1,50 @@
 <template>
     <div class="login">
-        <el-form>
+        <el-form v-model="formData">
             <el-form-item>
-                <el-input  type="text" prop="name" placeholder="输入用户名"></el-input>
+                <el-input type="text" prop="name" placeholder="输入用户名" required v-model="formData.username"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-input  type="password" prop="password" placeholder="输入密码"></el-input>
+                <el-input type="password" prop="password" placeholder="输入密码" required v-model="formData.password"></el-input>
             </el-form-item>             
         </el-form>   
-        <el-button type="primary"  @click="">登录</el-button>      
+        <el-button type="primary"  @click="signIn">登录</el-button>  
+        <span class="errorMessage">{{ errorMessage }}</span>     
     </div>  
 </template>
 
 <script>
+import AV from '../lib/leancloud'
+import getErorrMessage from '../lib/getErrorMessage'
+import getAVUser from '../lib/getAVUser'
 
-    export default {
-        name:'PartLogin'
+export default {
+    name:'PartLogin',   
+    data(){
+        return{
+            formData:{
+                username:'',
+                password:''
+            },
+            errorMessage:''
+        }
+    },
+    methods:{
+        signIn(){
+            let {username,password} = this.formData
+            AV.User.logIn(username,password).then(()=>{
+                this.$emit('success', getAVUser())
+            },(error)=>{
+                this.errorMessage = getErorMessage(error);
+            });
+        }
     }
+}
 
 </script>
 
 <style lang="scss" scoped>
-    $maincolor:#409EFF;
     .login {
         margin-top: 16px;
-    }
-    .submit>.el-input__inner:focus {
-        border-color:#dcdfe6;
-    }
-    .submit>.el-input__inner:hover {
-        background: $maincolor;
-        color:#fff;
-        outline: none;
     }
 </style>

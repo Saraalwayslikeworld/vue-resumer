@@ -9,17 +9,17 @@
         </div>
         <el-tabs class="loginOrRegister">
             <el-tab-pane label="登录" >
-                <partLogin/>
+                <partLogin @success="signIn($event)"/>
             </el-tab-pane>
             <el-tab-pane label="注册" >
-                <partRegister @success="login($event)"/>
+                <partRegister @success="signIn($event)"/>
             </el-tab-pane>
         </el-tabs>
       </div> 
     </div>
     <div class="editPage" v-show="isLogin">
       <header>
-        <Topbar v-show="!previewMode" class="topbar" />
+        <Topbar v-show="!previewMode" class="topbar" @logout="isLogin = false"/>
       </header>
       <main>
         <Editor class="editor" v-show="!previewMode"/>
@@ -39,6 +39,8 @@ import icons from './assets/icons'
 import PartLogin from './components/PartLogin'
 import PartRegister from './components/PartRegister'
 import store from './store/index'
+import AV from './lib/leancloud'
+import getAVUser from './lib/getAVUser'
 
 export default {
   name: 'App',
@@ -71,9 +73,10 @@ export default {
       state = JSON.parse(state)
     }
     this.$store.commit('initState',state)
+    this.$store.commit('setUser',getAVUser())
   },
   methods:{
-      login(user){
+      signIn(user){
           this.$store.commit('setUser',user)
           this.isLogin = true
       }
@@ -176,7 +179,6 @@ svg.icon{
     height: 1em;
     width: 1em;
     color: $maincolor;
-    fill: currentColor;
     vertical-align: -0.1em;
     font-size:16px;
   }

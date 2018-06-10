@@ -4,21 +4,37 @@
       <span class="logo"><i class="el-icon-edit-outline"></i> ResumeEditor</span>
       <div class="btn">
         <el-button type="success" icon="el-icon-view" round @click="previewMode = true">预览</el-button>
-        <el-button type="primary" icon="el-icon-circle-check-outline" round>保存</el-button>
-        <div class="exit">
-          <svg class="icon" aria-hidden="true">   
+        <div class="exit" @click="dialogVisible = true">
+          <svg class="icon" aria-hidden="true"  >   
             <use xlink:href="#icon-user"></use>
           </svg>
         </div>
       </div>       
     </div>
+    <el-dialog :title="`你好，${username}`" :visible.sync="dialogVisible" width="30%">
+      <span>是否退出登录?</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="logOut">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import AV from '../lib/leancloud'
+
 export default {
   name: 'Topbar',
+  data(){
+    return {
+      dialogVisible : false
+    }
+  },
   computed:{
+    username(){
+      return this.$store.state.user.username
+    },
     previewMode:{
       get(){
         return this.$store.state.previewMode
@@ -26,7 +42,14 @@ export default {
       set(val){
         this.$store.state.previewMode = val
       }
-      
+    }
+  },
+  methods:{
+    logOut(){
+      AV.User.logOut()
+      this.$store.commit('removeUser')
+      this.dialogVisible = false
+      this.$emit('logout')
     }
   }
 }
