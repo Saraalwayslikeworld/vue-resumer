@@ -8,6 +8,10 @@ export default new Vuex.Store({
     state: {
         selected: 'profile',
         previewMode: false,
+        user:{
+            id:'',
+            username:''
+        },
         config:[
             {field:'profile',icon:'id',title:'个人信息'},
             {field:'workHistory',icon:'work',title:'工作经历'},
@@ -59,6 +63,10 @@ export default new Vuex.Store({
         },
         delItem(state,{field,index}){
             this.state.resume[field].splice(index,1)
+        },
+        setUser(state,payload){
+            Object.assign(state.user,payload)
+            console.log(state.user)
         }
     }
 })

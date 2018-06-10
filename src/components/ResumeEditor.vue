@@ -31,6 +31,7 @@
 import ProfileEditor from './EditorProfile.vue'
 import ContactEditor from './EditorContact.vue'
 import ItemEditor from './EditorItem.vue'
+
 export default {
   name: 'Editor',
   components:{ ProfileEditor,ContactEditor,ItemEditor},

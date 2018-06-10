@@ -5,7 +5,11 @@
       <div class="btn">
         <el-button type="success" icon="el-icon-view" round @click="previewMode = true">预览</el-button>
         <el-button type="primary" icon="el-icon-circle-check-outline" round>保存</el-button>
-        <el-button  round>退出登录</el-button>
+        <div class="exit">
+          <svg class="icon" aria-hidden="true">   
+            <use xlink:href="#icon-user"></use>
+          </svg>
+        </div>
       </div>       
     </div>
   </div>
@@ -19,9 +23,10 @@ export default {
       get(){
         return this.$store.state.previewMode
       },
-      set(value){
-        this.$store.commit('preview',value)
+      set(val){
+        this.$store.state.previewMode = val
       }
+      
     }
   }
 }
@@ -50,10 +55,19 @@ export default {
         font-size: 24px;
         color: $maincolor;
       }
+      >.btn{
+        display: flex;
+        align-items: center;
+      }
       >.btn>el-button {
         font-size: 12px;
       }
     }
   }
- 
+  .exit>.icon{
+    width: 32px;
+    font-size: 32px;
+    color: #409EFF;
+    margin-left: 16px;
+  }
 </style>

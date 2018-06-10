@@ -6,7 +6,7 @@
                 <el-form-item v-for="(value,key) in item" :key='key' v-bind:label="labels[key] || key">                     
                     <el-input 
                         v-show="key=='content'" 
-                        type="textarea" :rows="3" 
+                        type="textarea" autosize 
                         :value="item[key]" 
                         @change.native="changeResumeField(`${field}.${index}.${key}`,$event.target.value)">
                     </el-input>  

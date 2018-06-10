@@ -1,9 +1,25 @@
 <template>
   <div id="app">
-    <!-- <div class="loginPage"></div> -->
-    <div class="editPage">
+    <div class="loginPage" v-show="!isLogin">
+      <div class="bg"></div>
+      <div class="container">
+        <div class="art">
+            <i class=" logo el-icon-edit-outline"></i>
+            <p class="title">ResumeEditor</p>
+        </div>
+        <el-tabs class="loginOrRegister">
+            <el-tab-pane label="登录" >
+                <partLogin/>
+            </el-tab-pane>
+            <el-tab-pane label="注册" >
+                <partRegister @success="login($event)"/>
+            </el-tab-pane>
+        </el-tabs>
+      </div> 
+    </div>
+    <div class="editPage" v-show="isLogin">
       <header>
-        <Topbar v-show="!previewMode" class="topbar"/>
+        <Topbar v-show="!previewMode" class="topbar" />
       </header>
       <main>
         <Editor class="editor" v-show="!previewMode"/>
@@ -20,14 +36,33 @@ import Topbar from './components/Topbar'
 import Preview from './components/ResumePreview'
 import Editor from './components/ResumeEditor'
 import icons from './assets/icons'
-
+import PartLogin from './components/PartLogin'
+import PartRegister from './components/PartRegister'
 import store from './store/index'
 
 export default {
   name: 'App',
   store,
   components: {
-    Topbar,Preview,Editor
+    Topbar,Preview,Editor,PartLogin,PartRegister
+  },
+  data(){
+    return{ 
+      isLogin : false,
+    }
+  },
+  computed:{
+    previewMode:{
+      get(){
+        return this.$store.state.previewMode
+      },
+      set(val){
+        this.$store.state.previewMode = val
+      }  
+    },
+    user(){
+      return this.$store.state.user
+    }
   },
   created(){
     document.body.insertAdjacentHTML('afterbegin', icons) 
@@ -37,22 +72,67 @@ export default {
     }
     this.$store.commit('initState',state)
   },
-  computed:{
-    previewMode:{
-      get(){
-        return this.$store.state.previewMode
-      },
-      set(value){
-        this.$store.commit('preview',value)
+  methods:{
+      login(user){
+          this.$store.commit('setUser',user)
+          this.isLogin = true
       }
-    }
   }
 }
 </script>
 
-<style lang="scss">
-$maincolor:#409EFF;
-$bgcolor: rgba(64, 160, 255, 0.6);
+<style lang="scss" scoped>
+  $maincolor:#409EFF;
+  $bgcolor: rgba(64, 160, 255, 0.6);
+.loginPage {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  >.bg  {
+    position: absolute;
+    top:0;
+    right:0;
+    z-index: -1;
+    height:100vh;
+    width: 100%;
+    background: url(../static/bg.jpg) no-repeat ; 
+    background-size: cover;
+    filter: blur(5px);
+  }
+   .container {
+        min-width: 600px;
+        width: 50%;
+        height: 400px;
+        margin-top: 160px;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow:0 1px 3px 0 rgba(0,0,0,0.25);
+        background: #fff;
+        color:$maincolor;
+        display: flex;
+        .art {
+            min-width: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: $maincolor;
+            color: #fff;
+            text-align: center;
+                .logo {
+                    font-size: 160px;
+                }
+                .title {
+                    font-size: 24px;
+                    margin-left: 16px;
+                }
+            }
+        .loginOrRegister {
+        flex-grow:1;    
+        background: #fff;
+        padding: 32px;
+        }
+    }
+}
 .editPage {
   height: 100vh;
   display: flex;
@@ -84,13 +164,7 @@ $bgcolor: rgba(64, 160, 255, 0.6);
     }
   }
 }
-  svg.icon{
-    height: 1em;
-    width: 1em;
-    fill: currentColor;
-    vertical-align: -0.1em;
-    font-size:16px;
-  }
+
 .viewMode {
   margin-top: 32px;
   align-self: center;
@@ -98,5 +172,12 @@ $bgcolor: rgba(64, 160, 255, 0.6);
   overflow: auto;
   height: calc(100vh - 32px); 
 }
-
+svg.icon{
+    height: 1em;
+    width: 1em;
+    color: $maincolor;
+    fill: currentColor;
+    vertical-align: -0.1em;
+    font-size:16px;
+  }
 </style>
