@@ -56,6 +56,10 @@ export default {
     },
     saveAll(){
       this.$store.dispatch('uploadOrSaveResume')
+      this.$message({
+        message: '保存成功！',
+        type: 'success'
+      });
     }
   }
 }

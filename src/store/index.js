@@ -99,7 +99,7 @@ export default new Vuex.Store({
                 this.state.id = data.id
                 console.log('保存成功！',state)
                 },(error)=>{
-                console.log('保存失败')
+                console.log('保存失败！',error)
             })
         },
         uploadResume(state){
@@ -108,6 +108,8 @@ export default new Vuex.Store({
             avData.set('content', dataString)
             avData.save().then(()=>{
                 console.log('更新成功',state)
+            },(error)=>{
+                console.log('保存失败！',error)
             })
         }
     },
