@@ -15,7 +15,7 @@
 
 <script>
 import AV from '../lib/leancloud'
-import getErorrMessage from '../lib/getErrorMessage'
+import getErrorMessage from '../lib/getErrorMessage'
 import getAVUser from '../lib/getAVUser'
 
 export default {
@@ -35,7 +35,7 @@ export default {
             AV.User.logIn(username,password).then(()=>{
                 this.$emit('success', getAVUser())
             },(error)=>{
-                this.errorMessage = getErorMessage(error);
+                this.errorMessage = getErrorMessage(error);
             });
         }
     }

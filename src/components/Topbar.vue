@@ -4,6 +4,7 @@
       <span class="logo"><i class="el-icon-edit-outline"></i> ResumeEditor</span>
       <div class="btn">
         <el-button type="success" icon="el-icon-view" round @click="previewMode = true">预览</el-button>
+        <el-button type="primary" icon="el-icon-check" round @click="saveAll">保存</el-button>
         <div class="exit" @click="dialogVisible = true">
           <svg class="icon" aria-hidden="true"  >   
             <use xlink:href="#icon-user"></use>
@@ -46,10 +47,15 @@ export default {
   },
   methods:{
     logOut(){
-      AV.User.logOut()
+      this.$store.dispatch('uploadOrSaveResume')
       this.$store.commit('removeUser')
+      AV.User.logOut()
       this.dialogVisible = false
       this.$emit('logout')
+      window.location.reload()
+    },
+    saveAll(){
+      this.$store.dispatch('uploadOrSaveResume')
     }
   }
 }
@@ -87,10 +93,13 @@ export default {
       }
     }
   }
-  .exit>.icon{
-    width: 32px;
-    font-size: 32px;
-    color: #409EFF;
+  .exit{
     margin-left: 16px;
+    svg.icon{
+      height: 32px;
+      width: 32px;
+      vertical-align: -0.1em;
+      font-size:16px;
+    }
   }
 </style>

@@ -15,7 +15,7 @@
 
 <script>
 import AV from '../lib/leancloud'
-import getErorrMessage from '../lib/getErrorMessage'
+import getErrorMessage from '../lib/getErrorMessage'
 import getAVUser from '../lib/getAVUser'
 
 export default {
@@ -29,6 +29,11 @@ export default {
             errorMessage:''
         }
     },
+    computed:{
+        state(){
+            return this.$store.state
+        }
+    },
     methods:{
         signUp(){
             console.log('signup')
@@ -39,9 +44,9 @@ export default {
             user.signUp().then((loginedUser)=>{
                 this.$emit('success',getAVUser())
             },(error)=>{
-                this.errorMessage = getErorMessage(error);
+                this.errorMessage = getErrorMessage(error);
             });
-        }
+        },             
     }
 }
 </script>

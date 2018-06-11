@@ -24,7 +24,7 @@
       <main>
         <Editor class="editor" v-show="!previewMode"/>
         <Preview class="preview" v-bind:class="{viewMode: previewMode}"/> 
-        <el-button class="exit" type="success" round @click="previewMode = false" v-show="previewMode">退出预览</el-button> 
+        <el-button class="exit" icon="el-icon-edit" type="success" round @click="previewMode = false" v-show="previewMode">编辑</el-button> 
       </main>
   </div>
   </div>
@@ -61,24 +61,16 @@ export default {
       set(val){
         this.$store.state.previewMode = val
       }  
-    },
-    user(){
-      return this.$store.state.user
     }
   },
   created(){
     document.body.insertAdjacentHTML('afterbegin', icons) 
-    let state = localStorage.getItem('state')
-    if(state){
-      state = JSON.parse(state)
-    }
-    this.$store.commit('initState',state)
-    this.$store.commit('setUser',getAVUser())
   },
   methods:{
       signIn(user){
           this.$store.commit('setUser',user)
           this.isLogin = true
+          this.$store.commit('fetchResume')
       }
   }
 }
@@ -175,11 +167,4 @@ export default {
   overflow: auto;
   height: calc(100vh - 32px); 
 }
-svg.icon{
-    height: 1em;
-    width: 1em;
-    color: $maincolor;
-    vertical-align: -0.1em;
-    font-size:16px;
-  }
 </style>

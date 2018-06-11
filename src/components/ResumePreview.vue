@@ -48,7 +48,7 @@ export default {
     background: #fff;
     box-shadow:0 1px 3px 0 rgba(0,0,0,0.25);
     border-radius: 4px;
-    overflow: auto;
+    overflow-y: auto;
     header {
       height: 180px;
       background: $maincolor;
@@ -89,6 +89,10 @@ export default {
         .msg {
           color:#303133;
           font-weight: bold;
+        }
+        p.content{
+          word-wrap:break-word;  
+          word-break:break-all;
         }
       }
     }

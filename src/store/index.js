@@ -1,6 +1,8 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 import objectPath from 'object-path'
+import AV from '../lib/leancloud'
+import getAVUser from '../lib/getAVUser'
 
 Vue.use(Vuex)
 
@@ -37,22 +39,34 @@ export default new Vuex.Store({
             projects:[{name:'简历项目',content:'xxxx'}],
             awards: [{name:'奖学金3等奖'}],
             contacts:{qq:'1101101111',wechat:'Wang-er',email:'wanger@163.com',phone:'13056832852'}
-        }
+        },
+        id:''
     },
     mutations: {
-        initState(state,payload){
-            Object.assign(state,payload)
+        fetchResume(state){
+            if(getAVUser()){                 
+                var query = new AV.Query('AllData');
+                query.find().then((resume)=>{
+                    let avAllData = resume[0]
+                    let id = avAllData.id
+                    Object.assign(state,JSON.parse(avAllData.attributes.content))
+                    state.id = id  
+                    console.log('获取数据成功！',state)
+                },(error)=>{
+                    console.log(error)
+                });
+            }
         },
         switchTab(state,value){
             state.selected = value
-            localStorage.setItem('state',JSON.stringify(state))
+            // localStorage.setItem('state',JSON.stringify(state))
         },
         preview(state,value){
             state.previewMode = value
         },
         updateResume(state,{path,value}){
             objectPath.set(state.resume,path,value)
-            localStorage.setItem('state', JSON.stringify(state))
+            // localStorage.setItem('state', JSON.stringify(state))
         },
         addItem(state,field){
             let empty = {}
@@ -69,7 +83,41 @@ export default new Vuex.Store({
             console.log(state.user)
         },
         removeUser(state){
-            state.user.id = null
+            this.state.user.id = ''
+        },
+        saveResume(state){ 
+            let dataString = JSON.stringify(state)
+            var AVData = AV.Object.extend('AllData');
+            var avData = new AVData();
+            var acl = new AV.ACL();
+            acl.setReadAccess(AV.User.current(),true) 
+            acl.setWriteAccess(AV.User.current(),true)
+      
+            avData.set('content',dataString);
+            avData.setACL(acl)
+            avData.save().then((data)=>{
+                this.state.id = data.id
+                console.log('保存成功！',state)
+                },(error)=>{
+                console.log('保存失败')
+            })
+        },
+        uploadResume(state){
+            let dataString = JSON.stringify(state)
+            let avData = AV.Object.createWithoutData('AllData',this.state.id)
+            avData.set('content', dataString)
+            avData.save().then(()=>{
+                console.log('更新成功',state)
+            })
         }
+    },
+    actions:{
+        uploadOrSaveResume({commit}){
+            if(this.state.id){
+                commit('uploadResume')
+            }else{
+                commit('saveResume')
+            } 
+        }  
     }
 })

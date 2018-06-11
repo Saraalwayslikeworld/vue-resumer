@@ -5,7 +5,7 @@
         <li v-for="item in config" :key="item.field" :class="{active: item.field === selected}" 
             @click="selected = item.field"> 
           <svg class="icon" aria-hidden="true">   
-              <use v-bind:xlink:href="`#icon-${item.icon}`"></use>
+              <use :xlink:href="`#icon-${item.icon}`"></use>
           </svg>
         </li>
       </ol>
@@ -59,7 +59,6 @@ export default {
 
 <style scoped lang="scss">
   $maincolor:#409EFF;
-  $bgcolor: rgba(64, 160, 255, 0.6);
   #Editor {
     background: #fff;
     box-shadow:0 1px 3px 0 rgba(0,0,0,0.25);
@@ -77,7 +76,7 @@ export default {
         text-align: center;
         margin: 8px 0;
         padding: 8px 16px;
-        color:#fff;
+        color:#fff ; 
         &.active {
           color: $maincolor;
           background: #fff;
@@ -93,8 +92,10 @@ export default {
       }
     }
   }
-  svg.icon {
-    width: 32px; height: 32px;
-    font-size: 16px;
+  svg.icon{
+    height: 32px;
+    width: 32px;
+    vertical-align: -0.1em;
+    font-size:16px;
   }
 </style>
