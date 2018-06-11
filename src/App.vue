@@ -90,7 +90,7 @@ export default {
     z-index: -1;
     height:100vh;
     width: 100%;
-    background-image: url(../static/img/bg.jpg) no-repeat ; 
+    background: url(../static/img/bg.jpg) no-repeat ; 
     background-size: cover;
     filter: blur(5px);
   }
