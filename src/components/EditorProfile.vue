@@ -1,7 +1,7 @@
 <template>
     <div id="ProfileEditor">
         <h3>{{title}}</h3>
-        <el-form label-position=left label-width="72px" size="small">
+        <el-form label-position='top' label-width="72px" size="small">
           <el-form-item label="姓 名">
             <el-input :value="profile.name" style="width:80%" @input.native="changeResumeField(`${field}.name`,$event.target.value)"></el-input>
           </el-form-item>

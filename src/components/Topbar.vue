@@ -99,6 +99,7 @@ export default {
       height: 32px;
       width: 32px;
       vertical-align: -0.1em;
+      fill:$maincolor;
       font-size:16px;
     }
   }

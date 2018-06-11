@@ -1,5 +1,5 @@
 <template>
-  <div id="Editor">
+  <div class="Editor">
     <nav>
       <ol>
         <li v-for="item in config" :key="item.field" :class="{active: item.field === selected}" 
@@ -57,45 +57,52 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-  $maincolor:#409EFF;
-  #Editor {
-    background: #fff;
-    box-shadow:0 1px 3px 0 rgba(0,0,0,0.25);
-    border-radius: 4px;
-    overflow: hidden;
-    display: flex;
-    > nav {
-      min-width: 60px;
-      max-width: 80px;
-      width: 20%;
-      background: $maincolor;
-      overflow: auto;
-      li{
-        width: 100%;
-        text-align: center;
-        margin: 8px 0;
-        padding: 8px 16px;
-        color:#fff ; 
-        &.active {
-          color: $maincolor;
-          background: #fff;
+
+<style  lang="scss" scoped>
+$maincolor:#409EFF;
+.Editor {
+  background: #fff;
+  box-shadow:0 1px 3px 0 rgba(0,0,0,0.25);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  > nav {
+    max-width: 80px;
+    min-width: 60px;
+    width: 20%;
+    background: $maincolor;
+    overflow: auto;
+    li{
+      width: 100%;
+      text-align: center;
+      margin: 8px 0;
+      padding: 8px 16px;
+      .icon {
+          fill:#fff;
+      } 
+      &.active {
+        color: $maincolor;
+        background: #fff;
+        .icon{
+          fill:$maincolor;
         }
       }
     }
-    >.panels {
-      overflow-y: auto;
-      flex-grow: 1;
-      > li {
-        padding: 24px;
-        height: 100%;
-      }
+  }
+  >.panels {
+    overflow-y: auto;
+    flex-grow: 1;
+    > li {
+      padding: 24px;
+      height: 100%;
     }
   }
-  svg.icon{
-    height: 32px;
-    width: 32px;
-    vertical-align: -0.1em;
-    font-size:16px;
-  }
+}
+.icon{
+  height: 32px;
+  width: 32px;
+  vertical-align: -0.1em;
+  font-size:16px;
+  overflow: hidden;
+}
 </style>
